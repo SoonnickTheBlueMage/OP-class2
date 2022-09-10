@@ -16,7 +16,14 @@ namespace Task2
  */
         internal static string FillWithAsterisks(string s, int n)
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder("");
+            for (int i = 0; i < s.Length; i++)
+            {
+                sb.Append(s[i]);
+                if (i != s.Length - 1) sb.Append('*', n);
+            }
+
+            return sb.ToString();
         }
 
 /*
@@ -34,7 +41,20 @@ namespace Task2
  */
         internal static string TabulateSquares(int n)
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder("");
+            int nLen = n.ToString().Length;
+            int nSqLen = (n * n).ToString().Length;
+            for (int i = 1; i <= n; i++)
+            {
+                int iLen = i.ToString().Length;
+                sb.Append($"{i}");
+                sb.Append($"{i * i}".PadLeft(1 + nLen + nSqLen - iLen));
+                sb.Append('\n');
+            }
+
+            sb.Remove(sb.Length - 1, 1);
+
+            return sb.ToString();
         }
 
         public static void Main(string[] args)
