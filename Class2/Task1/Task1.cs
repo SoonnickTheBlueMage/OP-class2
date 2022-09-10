@@ -7,9 +7,12 @@
  * где NN — длина заданной строки. Например, если задана строка "hello",
  * то результатом должна быть строка "Длина: 5".
  */
+
+// так как в исходнике задания функция типа int, я сделал возврат длины строки и вывод того, что просят 
         internal static int StringLength(string s)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Длина: {s.Length}");
+            return s.Length;
         }
 
 /*
@@ -21,9 +24,9 @@
             return new Tuple<int?, int?>(Code(First(s)), Code(Last(s)));
         }
         
-        private static char? First(string s) => throw new NotImplementedException(); 
-        private static char? Last(string s) => throw new NotImplementedException();
-        private static int? Code(char? c) => throw new NotImplementedException();
+        private static char? First(string s) => s.First(); 
+        private static char? Last(string s) => s.Last();
+        private static int? Code(char? c) => (int?) c;
        
 
 /*
@@ -32,7 +35,13 @@
  */
         internal static int CountDigits(string s)
         {
-            throw new NotImplementedException();
+            int n = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (Char.IsDigit(s[i])) n++;
+            }
+
+            return n;
         }
 
 /*
@@ -44,7 +53,7 @@
  */
         internal static int CountDigits2(string s)
         {
-            throw new NotImplementedException();
+            return s.Count(c => Char.IsDigit(c) == true);
         }
         
 /*
@@ -52,22 +61,47 @@
  * где на месте знака операции «±» находится символ «+» или «−» (например, «4+7−2−8»). Вывести значение
  * данного выражения (целое число).
  */
-        internal static int CalcDigits(string expr) {
-            throw new NotImplementedException();
+        internal static int CalcDigits(string expr)
+        {
+            int s = 0;
+            int sign = 1;
+            foreach (var i in expr)
+            {
+                if (i == '-')
+                {
+                    sign = -1;
+                }
+                else if (i == '+')
+                {
+                    sign = 1;
+                }
+                else
+                {
+                    s += sign * Int32.Parse(i.ToString());
+                }
+            }
+
+            return s;
         }
 
 /*
  * Задание 1.6. Даны строки S, S1 и S2. Заменить в строке S первое вхождение строки S1 на строку S2.
  */
-        internal static string ReplaceWithString(string s, string s1, string s2) {
-            throw new NotImplementedException();
+        internal static string ReplaceWithString(string s, string s1, string s2)
+        {
+            int ind = s.IndexOf(s1);
+            return s.Remove(ind, s1.Length).Insert(ind, s2);
         }
         
 
         public static void Main(string[] args)
         {
-            throw new NotImplementedException(
-                "Вызовите здесь все перечисленные в классе функции, как это сделано в предыдущих заданиях");
+            Console.WriteLine(StringLength("test1"));
+            Console.WriteLine(FirstLastCodes("task2"));
+            Console.WriteLine(CountDigits("th1s strin9 h0s 4 digits"));
+            Console.WriteLine(CountDigits2("th1s 0ne(1) h4s 5"));
+            Console.WriteLine(CalcDigits("1+2+3-4"));
+            Console.WriteLine(ReplaceWithString("hello Alex", "Alex", "World"));
         }
     }
 }
